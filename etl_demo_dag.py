@@ -3,7 +3,7 @@ from airflow.operators.bash_operator import BashOperator
 from airflow.utils.dates import days_ago
 
 default_args = {
-    'owner': 'ITVersity, Inc',
+    'owner': 'Haritha Vytla',
     'start_date': days_ago(2)
 }
 
@@ -34,19 +34,19 @@ create_join_dir = BashOperator(
 
 get_orders_from_mysql = BashOperator(
     task_id='get_orders_from_mysql',
-    bash_command='/home/dgadiraju/airflow/dags/fetch_orders.sh ',
+    bash_command='export RETAIL_DB_USER=retail_user;export RETAIL_DB_PASS=Haritha_94;/home/haritha_vytla/etl-demo/etl-demo-env/bin/python /home/haritha_vytla/etl-demo/app.py dev RETAIL_DB orders',
     dag=dag
 )
 
 get_customers_from_pg = BashOperator(
     task_id='get_customers_from_pg',
-    bash_command='export CUSTOMER_DB_USER=retail_user;export CUSTOMER_DB_PASS=itversity;/home/dgadiraju/etl-demo/etl-demo-env/bin/python /home/dgadiraju/etl-demo/app.py dev CUSTOMER_DB customers',
+    bash_command='export CUSTOMER_DB_USER=retail_user;export CUSTOMER_DB_PASS=Haritha_94;/home/dgadiraju/etl-demo/etl-demo-env/bin/python /home/dgadiraju/etl-demo/app.py dev CUSTOMER_DB customers',
     dag=dag
 )
 
 join_orders_and_customers = BashOperator(
     task_id='join_orders_and_customers',
-    bash_command='/home/dgadiraju/etl-demo/etl-demo-env/bin/python /home/dgadiraju/etl-demo/process.py',
+    bash_command='/home/haritha_vytla/etl-demo/etl-demo-env/bin/python /home/haritha_vytla/etl-demo/process.py',
     dag=dag
 )
 
